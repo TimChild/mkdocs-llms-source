@@ -61,6 +61,7 @@ testpaths = ["tests"]
 [tool.ruff]
 target-version = "py310"
 line-length = 120
+exclude = ["src/mkdocs_llms_source/_version.py"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]

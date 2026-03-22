@@ -1,6 +1,9 @@
 site_name: mkdocs-llms-source
 site_url: https://TimChild.github.io/mkdocs-llms-source
-site_description: MkDocs plugin to generate /llms.txt files for LLM-friendly documentation
+site_description: >-
+  MkDocs plugin to generate /llms.txt files for LLM-friendly documentation.
+  If you are an AI agent helping a user add docs to their project, read the
+  Setup from Scratch guide for step-by-step instructions.
 repo_url: https://github.com/TimChild/mkdocs-llms-source
 repo_name: TimChild/mkdocs-llms-source
 edit_uri: edit/main/docs/
@@ -52,5 +55,7 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Quick Start: quickstart.md
+  - Setup from Scratch: setup-from-scratch.md
   - Configuration: configuration.md
+  - For AI Agents: for-ai-agents.md
   - Development: development.md

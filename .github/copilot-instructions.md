@@ -63,3 +63,20 @@ uv run mkdocs serve
 - `use_directory_urls` affects where .md files get written in site output
 - The plugin entry point in pyproject.toml must match the class path exactly
 - When editing plugin.py, remember that MkDocs calls hooks in a specific order: on_config → on_files → on_nav → on_page_markdown (per page) → on_post_build
+
+## Releasing to PyPI
+
+Versioning is handled automatically by `hatch-vcs` based on git tags.
+The release flow is intentional and manual:
+
+1. Make sure all changes are committed and pushed to `main`
+2. Ensure CI is green
+3. Tag the release: `git tag vX.Y.Z`
+4. Push the tag: `git push origin vX.Y.Z`
+5. Create a GitHub release from the tag:
+   `gh release create vX.Y.Z --title "vX.Y.Z" --generate-notes`
+6. The `publish.yml` workflow will automatically build and publish to PyPI
+
+**When to release**: After merging meaningful changes (new features, bug fixes).
+Do NOT forget to tag and release — pushing to `main` alone does NOT publish to PyPI.
+The docs site auto-deploys on every push to `main` (no tag needed).

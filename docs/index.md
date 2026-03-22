@@ -12,6 +12,9 @@ The plugin produces three outputs:
 2. **`/llms-full.txt`** — All documentation concatenated into a single file
 3. **Per-page `.md` files** — Raw markdown at the same URL path as HTML pages
 
+!!! tip "New to MkDocs?"
+    If your project doesn't have docs yet, check out the **[Setup from Scratch](setup-from-scratch.md)** guide — it walks you through creating a full MkDocs site with LLM-friendly output and automatic GitHub Pages deployment.
+
 ## Quick Start
 
 Install the plugin:
