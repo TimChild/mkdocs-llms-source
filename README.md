@@ -1,8 +1,10 @@
 # mkdocs-llms-source
 
 [![CI](https://github.com/TimChild/mkdocs-llms-source/actions/workflows/ci.yml/badge.svg)](https://github.com/TimChild/mkdocs-llms-source/actions/workflows/ci.yml)
+[![Docs](https://github.com/TimChild/mkdocs-llms-source/actions/workflows/docs.yml/badge.svg)](https://TimChild.github.io/mkdocs-llms-source/)
 [![PyPI](https://img.shields.io/pypi/v/mkdocs-llms-source)](https://pypi.org/project/mkdocs-llms-source/)
 [![Python](https://img.shields.io/pypi/pyversions/mkdocs-llms-source)](https://pypi.org/project/mkdocs-llms-source/)
+[![License](https://img.shields.io/github/license/TimChild/mkdocs-llms-source)](https://github.com/TimChild/mkdocs-llms-source/blob/main/LICENSE)
 
 MkDocs plugin to generate [`/llms.txt`](https://llmstxt.org/) files for LLM-friendly documentation.
 
