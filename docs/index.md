@@ -1,10 +1,10 @@
-# mkdocs-llmstxt
+# mkdocs-llms-source
 
 MkDocs plugin to generate `/llms.txt` files for LLM-friendly documentation.
 
 ## Overview
 
-mkdocs-llmstxt generates [llms.txt](https://llmstxt.org/) files from your MkDocs documentation site so that AI tools can efficiently consume your docs without parsing HTML.
+mkdocs-llms-source generates [llms.txt](https://llmstxt.org/) files from your MkDocs documentation site so that AI tools can efficiently consume your docs without parsing HTML.
 
 The plugin produces three outputs:
 
@@ -17,7 +17,7 @@ The plugin produces three outputs:
 Install the plugin:
 
 ```bash
-pip install mkdocs-llmstxt
+pip install mkdocs-llms-source
 ```
 
 Add it to your `mkdocs.yml`:
@@ -25,7 +25,7 @@ Add it to your `mkdocs.yml`:
 ```yaml
 plugins:
   - search
-  - llmstxt
+  - llms-source
 ```
 
 Build your site:

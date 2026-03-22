@@ -5,8 +5,8 @@
 Clone the repository and install in development mode:
 
 ```bash
-git clone https://github.com/TimChild/mkdocs-llms-txt.git
-cd mkdocs-llms-txt
+git clone https://github.com/TimChild/mkdocs-llms-source.git
+cd mkdocs-llms-source
 uv sync --all-extras
 ```
 
@@ -19,7 +19,7 @@ pytest
 With coverage:
 
 ```bash
-pytest --cov=mkdocs_llmstxt
+pytest --cov=mkdocs_llms_source
 ```
 
 ## Linting
@@ -45,7 +45,7 @@ mkdocs build    # Build static site
 
 ## Project Structure
 
-- `src/mkdocs_llmstxt/plugin.py` — Main plugin implementation
+- `src/mkdocs_llms_source/plugin.py` — Main plugin implementation
 - `tests/` — Test suite with fixtures
 - `docs/` — Human-facing documentation (published via MkDocs)
 - `agent-docs/` — Agent working notes (not published)

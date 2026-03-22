@@ -1,4 +1,4 @@
-# Copilot Instructions for mkdocs-llms-txt
+# Copilot Instructions for mkdocs-llms-source
 
 ## Repository Overview
 
@@ -35,7 +35,7 @@ uv run mkdocs serve
 
 ## Architecture
 
-- `src/mkdocs_llmstxt/plugin.py` — Main plugin class using MkDocs hook API
+- `src/mkdocs_llms_source/plugin.py` — Main plugin class using MkDocs hook API
 - Plugin hooks used: on_config, on_files, on_nav, on_page_markdown, on_post_build
 - Source-first approach: uses original markdown, no HTML→MD conversion
 - Auto-derives llms.txt sections from MkDocs nav config (zero-config)

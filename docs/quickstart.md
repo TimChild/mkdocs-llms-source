@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-uv add mkdocs-llms-txt
+uv add mkdocs-llms-source
 ```
 
 ## Basic Usage
@@ -17,7 +17,7 @@ site_description: Documentation for My Project
 
 plugins:
   - search
-  - llmstxt
+  - llms-source
 ```
 
 **Important**: Set `site_url` in your `mkdocs.yml` — the llms.txt spec requires absolute URLs.

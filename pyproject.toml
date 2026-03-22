@@ -1,10 +1,10 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
-name = "mkdocs-llms-txt"
-version = "0.1.0"
+name = "mkdocs-llms-source"
+dynamic = ["version"]
 description = "MkDocs plugin to generate /llms.txt files for LLM-friendly documentation"
 readme = "README.md"
 license = "MIT"
@@ -38,16 +38,22 @@ dev = [
 ]
 
 [project.entry-points."mkdocs.plugins"]
-llmstxt = "mkdocs_llmstxt.plugin:LlmsTxtPlugin"
+llms-source = "mkdocs_llms_source.plugin:LlmsTxtPlugin"
 
 [project.urls]
-Homepage = "https://github.com/TimChild/mkdocs-llms-txt"
-Documentation = "https://github.com/TimChild/mkdocs-llms-txt"
-Repository = "https://github.com/TimChild/mkdocs-llms-txt"
-Issues = "https://github.com/TimChild/mkdocs-llms-txt/issues"
+Homepage = "https://github.com/TimChild/mkdocs-llms-source"
+Documentation = "https://github.com/TimChild/mkdocs-llms-source"
+Repository = "https://github.com/TimChild/mkdocs-llms-source"
+Issues = "https://github.com/TimChild/mkdocs-llms-source/issues"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/mkdocs_llms_source/_version.py"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/mkdocs_llmstxt"]
+packages = ["src/mkdocs_llms_source"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

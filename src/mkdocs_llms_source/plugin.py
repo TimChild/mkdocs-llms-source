@@ -13,7 +13,7 @@ from mkdocs.structure.files import Files
 from mkdocs.structure.nav import Navigation, Section
 from mkdocs.structure.pages import Page
 
-log = logging.getLogger("mkdocs.plugins.llmstxt")
+log = logging.getLogger("mkdocs.plugins.llms_source")
 
 
 @dataclass
@@ -56,7 +56,7 @@ class LlmsTxtPlugin(BasePlugin):
     def on_config(self, config: MkDocsConfig) -> MkDocsConfig:
         """Validate configuration."""
         if not config.get("site_url"):
-            log.warning("llmstxt: site_url is not set — llms.txt will use relative URLs.")
+            log.warning("llms-source: site_url is not set — llms.txt will use relative URLs.")
         return config
 
     def on_files(self, files: Files, config: MkDocsConfig) -> Files:
@@ -91,13 +91,13 @@ class LlmsTxtPlugin(BasePlugin):
         # Write llms.txt
         llms_txt = self._build_llms_txt(site_name, site_desc, site_url)
         (site_dir / "llms.txt").write_text(llms_txt, encoding="utf-8")
-        log.info("llmstxt: Generated llms.txt")
+        log.info("llms-source: Generated llms.txt")
 
         # Write llms-full.txt
         if self.config.get("full_output", True):
             llms_full = self._build_llms_full(site_name, site_desc)
             (site_dir / "llms-full.txt").write_text(llms_full, encoding="utf-8")
-            log.info("llmstxt: Generated llms-full.txt")
+            log.info("llms-source: Generated llms-full.txt")
 
         # Copy per-page .md files
         if self.config.get("markdown_urls", True):
@@ -193,4 +193,4 @@ class LlmsTxtPlugin(BasePlugin):
             dest.write_text(markdown, encoding="utf-8")
             copied += 1
 
-        log.info("llmstxt: Copied %d .md files to site output", copied)
+        log.info("llms-source: Copied %d .md files to site output", copied)

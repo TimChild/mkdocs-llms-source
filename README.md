@@ -1,8 +1,8 @@
-# mkdocs-llms-txt
+# mkdocs-llms-source
 
-[![CI](https://github.com/TimChild/mkdocs-llms-txt/actions/workflows/ci.yml/badge.svg)](https://github.com/TimChild/mkdocs-llms-txt/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/mkdocs-llms-txt)](https://pypi.org/project/mkdocs-llms-txt/)
-[![Python](https://img.shields.io/pypi/pyversions/mkdocs-llms-txt)](https://pypi.org/project/mkdocs-llms-txt/)
+[![CI](https://github.com/TimChild/mkdocs-llms-source/actions/workflows/ci.yml/badge.svg)](https://github.com/TimChild/mkdocs-llms-source/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/mkdocs-llms-source)](https://pypi.org/project/mkdocs-llms-source/)
+[![Python](https://img.shields.io/pypi/pyversions/mkdocs-llms-source)](https://pypi.org/project/mkdocs-llms-source/)
 
 MkDocs plugin to generate [`/llms.txt`](https://llmstxt.org/) files for LLM-friendly documentation.
 
@@ -17,7 +17,7 @@ Generates three outputs from your MkDocs site:
 ## Install
 
 ```bash
-uv add mkdocs-llms-txt
+uv add mkdocs-llms-source
 ```
 
 ## Usage
@@ -31,7 +31,7 @@ site_description: Documentation for My Project
 
 plugins:
   - search
-  - llmstxt
+  - llms-source
 ```
 
 Build your site:
@@ -46,7 +46,7 @@ The plugin auto-derives the llms.txt section structure from your MkDocs `nav` â€
 
 ```yaml
 plugins:
-  - llmstxt:
+  - llms-source:
       full_output: true           # Generate llms-full.txt (default: true)
       markdown_urls: true         # Copy .md source files to output (default: true)
       description: "Override description for llms.txt header"

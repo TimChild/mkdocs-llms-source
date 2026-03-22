@@ -9,6 +9,9 @@ build/
 *.egg-info/
 *.egg
 
+# Auto-generated version file
+src/mkdocs_llms_source/_version.py
+
 # Virtual environments
 .venv/
 venv/
@@ -26,6 +29,9 @@ site/
 .coverage
 htmlcov/
 .pytest_cache/
+
+# Other repos used for E2E testing
+other_repos/
 
 # OS
 .DS_Store

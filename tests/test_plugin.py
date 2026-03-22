@@ -1,11 +1,20 @@
-"""Tests for the mkdocs-llms-txt plugin."""
+"""Tests for the mkdocs-llms-source plugin."""
 
 from __future__ import annotations
 
-import subprocess
 from pathlib import Path
 
-FIXTURES_DIR = Path(__file__).parent / "fixtures"
+from mkdocs.commands.build import build as mkdocs_build
+from mkdocs.config.base import load_config
+
+
+def _build_site(site_path: Path) -> None:
+    """Build a MkDocs site using the Python API."""
+    config_path = str(site_path / "mkdocs.yml")
+    cfg = load_config(config_path)
+    # Force site_dir to be under the fixture directory for easy assertions
+    cfg["site_dir"] = str(site_path / "site")
+    mkdocs_build(cfg)
 
 
 class TestBasicBuild:
@@ -13,13 +22,13 @@ class TestBasicBuild:
 
     def test_llms_txt_generated(self, basic_site: Path) -> None:
         """llms.txt is created in site output."""
-        subprocess.run(["mkdocs", "build"], cwd=basic_site, check=True, capture_output=True)
+        _build_site(basic_site)
         site = basic_site / "site"
         assert (site / "llms.txt").exists()
 
     def test_llms_txt_content(self, basic_site: Path) -> None:
         """llms.txt contains correct structure."""
-        subprocess.run(["mkdocs", "build"], cwd=basic_site, check=True, capture_output=True)
+        _build_site(basic_site)
         content = (basic_site / "site" / "llms.txt").read_text()
 
         # H1 with site name
@@ -35,13 +44,13 @@ class TestBasicBuild:
 
     def test_llms_full_txt_generated(self, basic_site: Path) -> None:
         """llms-full.txt is created when full_output is true (default)."""
-        subprocess.run(["mkdocs", "build"], cwd=basic_site, check=True, capture_output=True)
+        _build_site(basic_site)
         site = basic_site / "site"
         assert (site / "llms-full.txt").exists()
 
     def test_llms_full_txt_content(self, basic_site: Path) -> None:
         """llms-full.txt contains all page content."""
-        subprocess.run(["mkdocs", "build"], cwd=basic_site, check=True, capture_output=True)
+        _build_site(basic_site)
         content = (basic_site / "site" / "llms-full.txt").read_text()
 
         assert "# Test Site" in content
@@ -50,7 +59,7 @@ class TestBasicBuild:
 
     def test_per_page_md_files(self, basic_site: Path) -> None:
         """Per-page .md files are copied to site output."""
-        subprocess.run(["mkdocs", "build"], cwd=basic_site, check=True, capture_output=True)
+        _build_site(basic_site)
         site = basic_site / "site"
 
         assert (site / "index.md").exists()
@@ -62,7 +71,7 @@ class TestBasicBuild:
 
     def test_page_titles_from_content(self, basic_site: Path) -> None:
         """Page titles are derived from nav or page content, not filenames."""
-        subprocess.run(["mkdocs", "build"], cwd=basic_site, check=True, capture_output=True)
+        _build_site(basic_site)
         content = (basic_site / "site" / "llms.txt").read_text()
 
         # Nav title for guide.md is "Setup Guide"
@@ -78,24 +87,24 @@ class TestConfigOptions:
         """llms-full.txt is NOT created when full_output is false."""
         mkdocs_yml = basic_site / "mkdocs.yml"
         config = mkdocs_yml.read_text().replace(
-            "  - llmstxt",
-            "  - llmstxt:\n      full_output: false",
+            "  - llms-source",
+            "  - llms-source:\n      full_output: false",
         )
         mkdocs_yml.write_text(config)
 
-        subprocess.run(["mkdocs", "build"], cwd=basic_site, check=True, capture_output=True)
+        _build_site(basic_site)
         assert not (basic_site / "site" / "llms-full.txt").exists()
 
     def test_markdown_urls_disabled(self, basic_site: Path) -> None:
         """Per-page .md files are NOT created when markdown_urls is false."""
         mkdocs_yml = basic_site / "mkdocs.yml"
         config = mkdocs_yml.read_text().replace(
-            "  - llmstxt",
-            "  - llmstxt:\n      markdown_urls: false",
+            "  - llms-source",
+            "  - llms-source:\n      markdown_urls: false",
         )
         mkdocs_yml.write_text(config)
 
-        subprocess.run(["mkdocs", "build"], cwd=basic_site, check=True, capture_output=True)
+        _build_site(basic_site)
         site = basic_site / "site"
         # llms.txt should still exist
         assert (site / "llms.txt").exists()
@@ -106,12 +115,12 @@ class TestConfigOptions:
         """Custom description overrides site_description in llms.txt."""
         mkdocs_yml = basic_site / "mkdocs.yml"
         config = mkdocs_yml.read_text().replace(
-            "  - llmstxt",
-            '  - llmstxt:\n      description: "Custom plugin description"',
+            "  - llms-source",
+            '  - llms-source:\n      description: "Custom plugin description"',
         )
         mkdocs_yml.write_text(config)
 
-        subprocess.run(["mkdocs", "build"], cwd=basic_site, check=True, capture_output=True)
+        _build_site(basic_site)
         content = (basic_site / "site" / "llms.txt").read_text()
         assert "> Custom plugin description" in content
 
@@ -121,7 +130,7 @@ class TestConfigOptions:
         config = mkdocs_yml.read_text().replace("site_url: https://test.example.com\n", "")
         mkdocs_yml.write_text(config)
 
-        subprocess.run(["mkdocs", "build"], cwd=basic_site, check=True, capture_output=True)
+        _build_site(basic_site)
         content = (basic_site / "site" / "llms.txt").read_text()
         # Should use relative paths instead of absolute URLs
         assert "index.md" in content
@@ -139,11 +148,11 @@ class TestEdgeCases:
         (tmp_path / "mkdocs.yml").write_text(
             "site_name: Test\n"
             "site_url: https://example.com/\n"
-            "plugins:\n  - llmstxt\n"
+            "plugins:\n  - llms-source\n"
             "nav:\n  - Home: index.md\n"
         )
 
-        subprocess.run(["mkdocs", "build"], cwd=tmp_path, check=True, capture_output=True)
+        _build_site(tmp_path)
         content = (tmp_path / "site" / "llms.txt").read_text()
         assert "https://example.com/index.md" in content
         assert "https://example.com//index.md" not in content
@@ -158,7 +167,7 @@ class TestEdgeCases:
         (tmp_path / "mkdocs.yml").write_text(
             "site_name: Test\n"
             "site_url: https://example.com\n"
-            "plugins:\n  - llmstxt\n"
+            "plugins:\n  - llms-source\n"
             "nav:\n"
             "  - Home: index.md\n"
             "  - Section:\n"
@@ -167,7 +176,7 @@ class TestEdgeCases:
             "      - B: b.md\n"
         )
 
-        subprocess.run(["mkdocs", "build"], cwd=tmp_path, check=True, capture_output=True)
+        _build_site(tmp_path)
         content = (tmp_path / "site" / "llms.txt").read_text()
         assert "## Section" in content
         assert "[A]" in content

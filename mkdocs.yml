@@ -1,5 +1,5 @@
-site_name: mkdocs-llms-txt
-site_url: https://TimChild.github.io/mkdocs-llms-txt
+site_name: mkdocs-llms-source
+site_url: https://TimChild.github.io/mkdocs-llms-source
 site_description: MkDocs plugin to generate /llms.txt files for LLM-friendly documentation
 
 theme:
@@ -7,7 +7,7 @@ theme:
 
 plugins:
   - search
-  - llmstxt
+  - llms-source
 
 nav:
   - Home: index.md

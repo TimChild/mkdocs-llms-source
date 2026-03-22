@@ -1,6 +1,6 @@
 # Configuration Reference
 
-All configuration options are set under the `llmstxt` plugin in `mkdocs.yml`.
+All configuration options are set under the `llms-source` plugin in `mkdocs.yml`.
 
 ## Options
 
@@ -13,7 +13,7 @@ Generate `/llms-full.txt` containing all documentation content concatenated.
 
 ```yaml
 plugins:
-  - llmstxt:
+  - llms-source:
       full_output: false  # Disable llms-full.txt generation
 ```
 
@@ -26,7 +26,7 @@ Copy source `.md` files into the site output directory, making them accessible a
 
 ```yaml
 plugins:
-  - llmstxt:
+  - llms-source:
       markdown_urls: false  # Don't copy .md files to output
 ```
 
@@ -39,7 +39,7 @@ Override the description shown in the llms.txt blockquote header.
 
 ```yaml
 plugins:
-  - llmstxt:
+  - llms-source:
       description: "Custom description for LLM consumers"
 ```
 
@@ -52,7 +52,7 @@ site_description: Documentation for My Project
 
 plugins:
   - search
-  - llmstxt:
+  - llms-source:
       full_output: true
       markdown_urls: true
       description: "API and usage docs for My Project"

@@ -474,8 +474,7 @@ wheels = [
 ]
 
 [[package]]
-name = "mkdocs-llms-txt"
-version = "0.1.0"
+name = "mkdocs-llms-source"
 source = { editable = "." }
 dependencies = [
     { name = "mkdocs" },
