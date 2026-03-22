@@ -1,0 +1,9 @@
+site_name: Test Site
+site_url: https://test.example.com
+site_description: A test documentation site
+plugins:
+  - llmstxt
+nav:
+  - Home: index.md
+  - Guides:
+    - Setup Guide: guide.md
