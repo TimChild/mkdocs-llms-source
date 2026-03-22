@@ -1,13 +1,53 @@
 site_name: mkdocs-llms-source
 site_url: https://TimChild.github.io/mkdocs-llms-source
 site_description: MkDocs plugin to generate /llms.txt files for LLM-friendly documentation
+repo_url: https://github.com/TimChild/mkdocs-llms-source
+repo_name: TimChild/mkdocs-llms-source
+edit_uri: edit/main/docs/
 
 theme:
   name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - content.action.edit
+    - content.code.copy
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.footer
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - toc.follow
 
 plugins:
   - search
   - llms-source
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+  - attr_list
+  - md_in_html
 
 nav:
   - Home: index.md
