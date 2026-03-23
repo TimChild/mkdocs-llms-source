@@ -33,6 +33,9 @@ htmlcov/
 # Other repos used for E2E testing
 other_repos/
 
+# Temp working files
+temp/
+
 # OS
 .DS_Store
 Thumbs.db

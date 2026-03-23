@@ -155,6 +155,13 @@ class LlmsTxtPlugin(BasePlugin):
         if site_desc:
             lines.append(f"> {site_desc}\n")
 
+        if self.config.get("full_output", True) and site_url:
+            full_url = f"{site_url}/llms-full.txt"
+            lines.append(
+                "This file is an index of documentation pages."
+                f" For all content in a single file, see [{site_name} full docs]({full_url}).\n"
+            )
+
         for section in self._sections:
             lines.append(f"## {section.title}\n")
             for page in section.pages:
