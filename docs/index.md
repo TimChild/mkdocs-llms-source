@@ -2,6 +2,14 @@
 
 MkDocs plugin to generate `/llms.txt` files for LLM-friendly documentation.
 
+!!! tip "Let AI set it up for you"
+
+    Paste this into your AI coding agent — it will add the plugin to an existing MkDocs site, or set up MkDocs from scratch:
+
+    ```
+    Add the mkdocs-llms-source plugin to my project using the instructions at https://TimChild.github.io/mkdocs-llms-source/llms.txt
+    ```
+
 ## Overview
 
 mkdocs-llms-source generates [llms.txt](https://llmstxt.org/) files from your MkDocs documentation site so that AI tools can efficiently consume your docs without parsing HTML.
