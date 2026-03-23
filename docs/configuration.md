@@ -43,6 +43,19 @@ plugins:
       description: "Custom description for LLM consumers"
 ```
 
+### `homepage_notice`
+
+- **Type**: `bool`
+- **Default**: `true`
+
+Inject a subtle notice at the top of your homepage pointing AI agents to `/llms.txt` and `/llms-full.txt`. The notice adapts to light and dark themes and is only added to the rendered HTML — it does not appear in the raw markdown outputs.
+
+```yaml
+plugins:
+  - llms-source:
+      homepage_notice: false  # Disable the homepage notice
+```
+
 ## Full Example
 
 ```yaml
@@ -55,6 +68,7 @@ plugins:
   - llms-source:
       full_output: true
       markdown_urls: true
+      homepage_notice: true
       description: "API and usage docs for My Project"
 
 nav:

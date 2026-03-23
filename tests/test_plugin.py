@@ -181,3 +181,47 @@ class TestEdgeCases:
         assert "## Section" in content
         assert "[A]" in content
         assert "[B]" in content
+
+
+class TestHomepageNotice:
+    """Test homepage notice injection."""
+
+    def test_homepage_notice_injected_by_default(self, basic_site: Path) -> None:
+        """Homepage notice appears in rendered index.html by default."""
+        _build_site(basic_site)
+        html = (basic_site / "site" / "index.html").read_text()
+        assert "AI / LLM agents:" in html
+        assert "/llms.txt" in html
+        assert "/llms-full.txt" in html
+
+    def test_homepage_notice_not_in_raw_md(self, basic_site: Path) -> None:
+        """Homepage notice does NOT appear in raw per-page .md output."""
+        _build_site(basic_site)
+        md = (basic_site / "site" / "index.md").read_text()
+        assert "AI / LLM agents:" not in md
+
+    def test_homepage_notice_not_in_llms_full(self, basic_site: Path) -> None:
+        """Homepage notice does NOT appear in llms-full.txt."""
+        _build_site(basic_site)
+        content = (basic_site / "site" / "llms-full.txt").read_text()
+        assert "AI / LLM agents:" not in content
+
+    def test_homepage_notice_disabled(self, basic_site: Path) -> None:
+        """Homepage notice can be disabled via config."""
+        mkdocs_yml = basic_site / "mkdocs.yml"
+        config = mkdocs_yml.read_text().replace(
+            "  - llms-source",
+            "  - llms-source:\n      homepage_notice: false",
+        )
+        mkdocs_yml.write_text(config)
+
+        _build_site(basic_site)
+        html = (basic_site / "site" / "index.html").read_text()
+        assert "AI / LLM agents:" not in html
+
+    def test_homepage_notice_only_on_index(self, basic_site: Path) -> None:
+        """Homepage notice only appears on index.md, not other pages."""
+        _build_site(basic_site)
+        # guide.html should NOT have the notice
+        guide_html = (basic_site / "site" / "guide" / "index.html").read_text()
+        assert "AI / LLM agents:" not in guide_html
