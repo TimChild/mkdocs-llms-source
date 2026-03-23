@@ -1,0 +1,6 @@
+version: "3"
+
+tasks:
+  docs:serve:
+    desc: Serve documentation locally with live reload
+    cmd: uv run python -m mkdocs serve
