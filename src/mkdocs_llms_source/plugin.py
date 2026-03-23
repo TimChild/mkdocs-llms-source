@@ -45,6 +45,7 @@ class LlmsTxtPlugin(BasePlugin):
         ("full_output", config_options.Type(bool, default=True)),
         ("markdown_urls", config_options.Type(bool, default=True)),
         ("description", config_options.Type(str, default="")),
+        ("homepage_notice", config_options.Type(bool, default=True)),
     )
 
     def __init__(self) -> None:
@@ -74,6 +75,13 @@ class LlmsTxtPlugin(BasePlugin):
     def on_page_markdown(self, markdown: str, page: Page, config: MkDocsConfig, files: Files) -> str:
         """Capture raw markdown for each page."""
         self._pages[page.file.src_path] = markdown
+
+        # Inject homepage notice into HTML rendering only (not raw .md outputs)
+        if self.config.get("homepage_notice", True) and page.file.src_path == "index.md":
+            site_url = (config.get("site_url") or "").rstrip("/")
+            notice = self._build_homepage_notice(site_url)
+            return notice + "\n\n" + markdown
+
         return markdown
 
     def on_post_build(self, config: MkDocsConfig) -> None:
@@ -189,6 +197,21 @@ class LlmsTxtPlugin(BasePlugin):
                     lines.append("")
 
         return "\n".join(lines).rstrip() + "\n"
+
+    def _build_homepage_notice(self, site_url: str) -> str:
+        """Build a subtle HTML notice for the homepage."""
+        llms_url = f"{site_url}/llms.txt" if site_url else "llms.txt"
+        full_url = f"{site_url}/llms-full.txt" if site_url else "llms-full.txt"
+        parts = f'<a href="{llms_url}">/llms.txt</a>'
+        if self.config.get("full_output", True):
+            parts += f' or <a href="{full_url}">/llms-full.txt</a>'
+        return (
+            '<p style="font-size: 0.85em; opacity: 0.7; border-left: 3px solid'
+            ' currentColor; padding-left: 0.8em;">'
+            "<strong>AI / LLM agents:</strong> For a machine-readable summary"
+            f" of this site, see {parts}."
+            "</p>"
+        )
 
     def _copy_md_files(self, config: MkDocsConfig, site_dir: Path) -> None:
         """Copy source .md files into the site output directory."""
